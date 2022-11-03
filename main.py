@@ -20,17 +20,20 @@ print("-"*50)
 try:
     for port in range(1,1000):
         #print(int(((port/65535)*100)), end = "\r")
-        print(port)
+        #print(port)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.setdefaulttimeout(1)
+        socket.setdefaulttimeout(0.1)
 
         result = s.connect_ex((target,port))
         if result == 0:
             print("Port {} is open".format(port))
             openPorts.append(port)
         s.close()
-
-    print("Open ports : " + openPorts)
+    # print("Done")
+    if len(openPorts) == 0:
+        print("No open ports")
+    else:
+        print(openPorts)
 
 except KeyboardInterrupt:
     print("\nExiting...")
