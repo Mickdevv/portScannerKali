@@ -1,7 +1,7 @@
 import socket
 from datetime import datetime
 
-print("Scanning started at : " + str(datetime.now()))
+
 
 def portScanner(port, host):
     socket.setdefaulttimeout(0.1)

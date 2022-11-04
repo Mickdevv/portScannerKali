@@ -5,8 +5,8 @@ ADD main.py .
 ADD IPSweep.py .
 ADD PortScanner.py .
 
-RUN pip install requests beautifulsoup4 numpy scapy
+#RUN pip install requests beautifulsoup4 numpy scapy
 
-CMD python ./Pmain.py
+CMD python3 ./main.py google.com
 
 #192.168.27.129
