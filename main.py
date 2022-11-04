@@ -1,43 +1,17 @@
+import PortScanner
 import socket
-import sys
-import time
-from datetime import datetime
-import numpy as np
 
-if len(sys.argv) == 2:
-    target = socket.gethostbyname(sys.argv[1])
+hostName = "hackthissite.org"
+#hostName = "tryhackme.com"
 
-else:
-    print("Invalid argument amount")
+print("Scanning " + hostName + " (" + socket.gethostbyname(hostName) + ") ")
 
 openPorts = []
+host = socket.gethostbyname(hostName)
+for i in range(10000):
+    openPort = PortScanner.portScanner(i, host)
+    if openPort != -1:
+        openPorts.append(openPort)
+        #print(openPorts)
 
-print("-"*50)
-print("Scanning target : " + target)
-print("Scanning started at " + str(datetime.now()))
-print("-"*50)
-
-try:
-    for port in range(1,1000):
-        #print(int(((port/65535)*100)), end = "\r")
-        #print(port)
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socket.setdefaulttimeout(0.1)
-
-        result = s.connect_ex((target,port))
-        if result == 0:
-            print("Port {} is open".format(port))
-            openPorts.append(port)
-        s.close()
-    # print("Done")
-    if len(openPorts) == 0:
-        print("No open ports")
-    else:
-        print(openPorts)
-
-except KeyboardInterrupt:
-    print("\nExiting...")
-except socket.gaierror:
-    print("\nHostname could not be resolved")
-except socket.error:
-    print("\nServer not responding")
+print(openPorts)
