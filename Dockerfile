@@ -7,6 +7,6 @@ ADD PortScanner.py .
 
 #RUN pip install requests beautifulsoup4 numpy scapy
 
-CMD python3 ./main.py google.com
+CMD python3 ./main.py hackthissite.org
 
 #192.168.27.129
