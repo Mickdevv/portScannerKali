@@ -1,9 +1,11 @@
 import PortScanner
 import socket
 import sys
+from pyfiglet import Figlet
 from datetime import datetime
 
-print("Main started...\n")
+f = Figlet(font='banner')
+print(f.renderText('Scanner started'))
 
 hostName = sys.argv[1]
 
