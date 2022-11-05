@@ -3,5 +3,5 @@ import sys
 import BannerRender as br
 
 br.printBanner("Welcome")
-
-PortScanner.portScan(sys.argv[0])
+print("_" * 50)
+PortScanner.portScan(sys.argv[1])

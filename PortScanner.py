@@ -9,9 +9,7 @@ def portScanner(port, host):
     socket.setdefaulttimeout(0.1)
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    # print("Scanning....")
     if s.connect_ex((host, port)):
-        # print("Port " + str(port) + " is closed")
         return -1
     else:
         print("--------- Port " + str(port) + " is open ---------")
@@ -20,6 +18,8 @@ def portScanner(port, host):
 
 def portScan(hostname):
 
+    br.printBanner("Port scanner")
+
     cluster = MongoClient("mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
     db = cluster["myDatabase"]
     collection = db["hof"]
@@ -27,29 +27,30 @@ def portScan(hostname):
     # post = {"name": "Michael", "score": 5}
     # collection.
     # collection.insert_one(post)
+    scanStartTime = datetime.now()
 
-    br.printBanner("Port scanner")
-
-    print('Scanning ' + hostname + " (" + socket.gethostbyname(hostname) + ")")
-    print("Started at : " + str(datetime.now()) + " \n")
+    print('Scanning ' + hostname + " (" + socket.gethostbyname(hostname) + "). Started at : " + str(datetime.now()) + "\n")
 
     openPorts = []
     host = socket.gethostbyname(hostname)
+    firstPort = 79
+    lastPort = 444
     try:
-        for i in range(79, 444):
+        for i in range(firstPort, lastPort):
             openPort = portScanner(i, host)
+
             if openPort != -1:
-                openPortTemp = []
-                openPorts.append(PortClass(openPort, socket.getservbyport(openPort)))
-                # openPortTemp.append(openPort)
-                # openPortTemp.append(socket.getservbyport(openPort))
-                # openPorts.append(openPortTemp)
-                print(socket.getservbyport(openPort))
-                # print(openPorts)
-        print()
-        for port in openPorts:
-            print("Port " + str(port.getPortNumber()) + " is open. Protocol : " + str(port.getProtocol()))
-        # print(openPorts)
+                #print(openPort)
+                #print(socket.getservbyport(openPort) + "\n")
+                openPorts.append(PortClass.portClass(openPort, socket.getservbyport(openPort)))
+
+        print("\nTotal time taken: " + str(datetime.now() - scanStartTime) + "\n")
+
+        if len(openPorts) == 0:
+            print("No open ports found")
+        else:
+            for port in openPorts:
+                print("Port " + str(port.getPortNumber()) + " is open. Protocol : " + str(port.getProtocol()))
 
     except KeyboardInterrupt:
         print("\nExiting...")

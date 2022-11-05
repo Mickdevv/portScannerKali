@@ -1,4 +1,4 @@
-class PortClass:
+class portClass:
     def __init__(self, portnumber, protocol):
         self.portNumber = portnumber
         self.Protocol = protocol
