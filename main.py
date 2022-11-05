@@ -1,10 +1,27 @@
+import pyfiglet
+import pymongo
+from pymongo import MongoClient
 import PortScanner
 import socket
 import sys
 from pyfiglet import Figlet
 from datetime import datetime
 
-f = Figlet(font='banner')
+cluster = MongoClient("mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
+db = cluster["Test"]
+collection = db["Test"]
+
+post = {"name" : "Michael", "score" : 5}
+collection.insert_one(post)
+
+fonts = ['roman', 'doh', 'banner4', 'char3___', 'banner3', 'clb8x10', 'colossal', 'univers', 'starwars']
+# for font in fonts:
+#     print(font)
+#     f = Figlet(font=fonts[-1])
+#     print(f.renderText('Scanner'))
+
+#Print banner
+f = Figlet(font=fonts[3])
 print(f.renderText('Scanner started'))
 
 hostName = sys.argv[1]
