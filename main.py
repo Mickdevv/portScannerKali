@@ -6,41 +6,40 @@ import socket
 import sys
 from pyfiglet import Figlet
 from datetime import datetime
+from PortClass import PortClass
 
-cluster = MongoClient("mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
-db = cluster["Test"]
-collection = db["Test"]
-
-post = {"name" : "Michael", "score" : 5}
-collection.insert_one(post)
+# cluster = MongoClient("mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
+# db = cluster["Test"]
+# collection = db["Test"]
+#
+# post = {"name": "Michael", "score": 5}
+# collection.insert_one(post)
 
 fonts = ['roman', 'doh', 'banner4', 'char3___', 'banner3', 'clb8x10', 'colossal', 'univers', 'starwars']
-# for font in fonts:
-#     print(font)
-#     f = Figlet(font=fonts[-1])
-#     print(f.renderText('Scanner'))
 
-#Print banner
+
+# Print banner
 f = Figlet(font=fonts[3])
 print(f.renderText('Scanner started'))
 
 hostName = sys.argv[1]
 
-print("Scanning " + hostName + " (" + socket.gethostbyname(hostName) + ") " + " started at : " + str(datetime.now()) + "\n")
+print("Scanning " + hostName + " (" + socket.gethostbyname(hostName) + ") " + " started at : " + str(
+    datetime.now()) + "\n")
 
 openPorts = []
 host = socket.gethostbyname(hostName)
-for i in range(79,500):
+for i in range(79, 444):
     openPort = PortScanner.portScanner(i, host)
     if openPort != -1:
         openPortTemp = []
-        openPortTemp.append(openPort)
-        openPortTemp.append(socket.getservbyport(openPort))
-        openPorts.append(openPortTemp)
+        openPorts.append(PortClass(openPort, socket.getservbyport(openPort)))
+        # openPortTemp.append(openPort)
+        # openPortTemp.append(socket.getservbyport(openPort))
+        # openPorts.append(openPortTemp)
         print(socket.getservbyport(openPort))
-        #print(openPorts)
-
+        # print(openPorts)
+print()
 for port in openPorts:
-    #Instead of a 2d array, create a port class and have an array of those
-    print("Port " + port[0] + "Is open. Protocol : " + port[1])
-print(openPorts)
+    print("Port " + str(port.getPortNumber()) + " is open. Protocol : " + str(port.getProtocol()))
+# print(openPorts)
