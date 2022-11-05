@@ -1,6 +1,6 @@
 import PortScanner
 import sys
-from BannerRender import printBanner as br
+import BannerRender as br
 
 br.printBanner("Welcome")
 

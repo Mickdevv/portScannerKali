@@ -1,5 +1,5 @@
 import socket
-from BannerRender import printBanner as br
+import BannerRender as br
 from pymongo import MongoClient
 import PortClass
 from datetime import datetime
@@ -30,8 +30,8 @@ def portScan(hostname):
 
     br.printBanner("Port scanner")
 
-    print("Scanning " + hostname + " (" + socket.gethostbyname(hostname) + ") " + " started at : " + str(
-        datetime.now()) + "\n")
+    print('Scanning ' + hostname + " (" + socket.gethostbyname(hostname) + ")")
+    print("Started at : " + str(datetime.now()) + " \n")
 
     openPorts = []
     host = socket.gethostbyname(hostname)

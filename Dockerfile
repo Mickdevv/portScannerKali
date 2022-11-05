@@ -5,6 +5,7 @@ ADD main.py .
 ADD IPSweep.py .
 ADD PortScanner.py .
 ADD PortClass.py .
+ADD BannerRender.py .
 
 RUN pip install pyfiglet pymongo
 
