@@ -1,9 +1,7 @@
 import socket
-import BannerRender as br
-from pyfiglet import Figlet
+from BannerRender import printBanner as br
 from pymongo import MongoClient
 import PortClass
-import pymongo
 from datetime import datetime
 
 
