@@ -6,7 +6,7 @@ ADD IPSweep.py .
 ADD PortScanner.py .
 ADD PortClass.py .
 
-RUN pip install requests beautifulsoup4 numpy scapy pyfiglet pymongo
+RUN pip install pyfiglet pymongo
 
 CMD python3 ./main.py hackthissite.org
 

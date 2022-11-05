@@ -2,7 +2,6 @@ import socket
 import sys
 import time
 from datetime import datetime
-import numpy as np
 
 if len(sys.argv) == 2:
     target = socket.gethostbyname(sys.argv[1])
