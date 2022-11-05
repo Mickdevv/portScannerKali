@@ -1,5 +1,3 @@
-import pyfiglet
-import pymongo
 from pymongo import MongoClient
 import PortScanner
 import socket
@@ -22,7 +20,7 @@ def portScan():
 
 
     # Print banner
-    f = Figlet(font=fonts[-2])
+    f = Figlet(font=fonts[-3])
     print(f.renderText('Scanner started'))
 
     hostName = sys.argv[1]
