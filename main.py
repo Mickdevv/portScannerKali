@@ -40,4 +40,7 @@ for i in range(79,500):
         print(socket.getservbyport(openPort))
         #print(openPorts)
 
+for port in openPorts:
+    #Instead of a 2d array, create a port class and have an array of those
+    print("Port " + port[0] + "Is open. Protocol : " + port[1])
 print(openPorts)
