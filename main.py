@@ -19,4 +19,4 @@ br.printBanner("Welcome")
 # for result in a:
 #     print(result)
 
-PortScanner.portScan(sys.argv[1], 2)
+PortScanner.portScan(sys.argv[1], 9)
