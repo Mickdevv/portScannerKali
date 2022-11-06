@@ -8,7 +8,12 @@ ADD PortClass.py .
 ADD BannerRender.py .
 ADD ConnectMongoDB.py .
 
-RUN pip3 install --upgrade pip pymongo pyfiglet tqdm
+CMD ping pypi.python.org
+
+RUN pip3 install --upgrade pip
+RUN pip3 install pymongo
+RUN pip3 install pyfiglet
+RUN pip3 install tqdm
 
 CMD python3 ./main.py hackthissite.org 1
 

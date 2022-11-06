@@ -19,7 +19,7 @@ def portScannerLoop(firstPort, lastPort, host, hostname, frequentPorts, openPort
                     if j == port[0]:
                         present = True
                 if not present:
-                    print("portScannerLoop--------- Port " + str(openPort) + " is open ---------")
+                    print(" Port " + str(openPort) + " is open")
                     openPorts.append(PortClass.portClass(hostname, openPort, socket.getservbyport(openPort), host))
         print()
 
@@ -43,7 +43,7 @@ def portScannerList(frequentPorts, host, hostname, openPorts, firstPort, lastPor
             openPort = portScanner(frequentPorts[j][0], host)
 
             if openPort != -1 and firstPort <= openPort <= lastPort:
-                print("--------- Port " + str(openPort) + " is open ---------")
+                print(" Port " + str(openPort) + " is open ")
                 openPorts.append(PortClass.portClass(hostname, openPort, socket.getservbyport(openPort), host))
 
     except KeyboardInterrupt:
