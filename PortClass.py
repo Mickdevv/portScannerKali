@@ -2,22 +2,25 @@ from pymongo import MongoClient
 import ConnectMongoDB
 
 class portClass:
-    def __init__(self, portnumber, protocol, ip):
+    def __init__(self, hostname, portnumber, protocol, ip):
+        self.hostName = hostname
         self.Frequency = 1
         self.portNumber = portnumber
         self.Protocol = protocol
-        self.IP = ip
-        self.ID = str(self.IP) + "/" + str(self.portNumber)
+        self.ID = str(self.hostName) + "/" + str(self.portNumber)
 
         self.updateDB()
 
-        #print("Port: " + str(self.portNumber) + " | Protocol: " + str(self.Protocol) + " | Frequency: " + str(self.Frequency))
+        print("ID: " + self.ID + " | Host name : " + str(self.hostName) + " | Port: " + str(self.portNumber) + " | Protocol: " + str(self.Protocol) + " | Frequency: " + str(self.Frequency))
+
+    def getHostName(self):
+        return self.hostName
+
+    def setHostName(self, hostname):
+        self.hostName = hostname
 
     def getID(self):
         return self.ID
-
-    def getIP(self):
-        return self.IP
 
     def getPortNumber(self):
         return self.portNumber
@@ -42,7 +45,7 @@ class portClass:
 
         entrySearchResult = collection.find_one({"_id": self.ID})
         if entrySearchResult is None:
-            post = {"_id": self.ID, "IP": self.IP, "Port": self.portNumber, "protocol": self.Protocol, "Frequency": self.Frequency}
+            post = {"_id": self.ID, "hostName": self.hostName, "Port": self.portNumber, "protocol": self.Protocol, "Frequency": self.Frequency}
             collection.insert_one(post)
         else:
             collection.update_one({"_id": self.ID}, {"$inc": {"Frequency": 1}})
