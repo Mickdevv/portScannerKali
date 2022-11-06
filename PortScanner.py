@@ -8,6 +8,7 @@ from tqdm import tqdm
 
 
 def portScannerLoop(firstPort, lastPort, host, hostname, frequentPorts, openPorts):
+    print("\nChecking other ports within the range " + str(firstPort) + " - " + str(lastPort))
     try:
         for j in tqdm(range(firstPort, lastPort)):
             openPort = portScanner(j, host)
@@ -17,9 +18,10 @@ def portScannerLoop(firstPort, lastPort, host, hostname, frequentPorts, openPort
                 for port in frequentPorts:
                     if j == port[0]:
                         present = True
-                    if not present:
-                        print("--------- Port " + str(openPort) + " is open ---------")
-                        openPorts.append(PortClass.portClass(hostname, openPort, socket.getservbyport(openPort), host))
+                if not present:
+                    print("portScannerLoop--------- Port " + str(openPort) + " is open ---------")
+                    openPorts.append(PortClass.portClass(hostname, openPort, socket.getservbyport(openPort), host))
+        print()
 
 
     except KeyboardInterrupt:
@@ -33,9 +35,12 @@ def portScannerLoop(firstPort, lastPort, host, hostname, frequentPorts, openPort
 
 
 def portScannerList(frequentPorts, host, hostname, openPorts, firstPort, lastPort):
+    print("Checking frequently open ports...")
+
     try:
-        for port in frequentPorts:
-            openPort = portScanner(port[0], host)
+        #for j in tqdm(range(len(frequentPorts))):
+        for j in range(len(frequentPorts)):
+            openPort = portScanner(frequentPorts[j][0], host)
 
             if openPort != -1 and firstPort <= openPort <= lastPort:
                 print("--------- Port " + str(openPort) + " is open ---------")
@@ -103,7 +108,8 @@ def portScanMain(hostname, iterations):
         openPorts = []
 
         # Show start time
-        print("\n--- Iteration " + str(i + 1) + "/" + str(iterations) + " ---\n")
+        if i > 1:
+            print("\n--- Iteration " + str(i + 1) + "/" + str(iterations) + " ---\n")
 
         # Generate a list of the most frequently open ports for this hostName by querying the database
         frequentPorts = generatePortFrequencyList(hostname)
@@ -114,9 +120,12 @@ def portScanMain(hostname, iterations):
 
         openPorts = portScannerLoop(firstPort, lastPort, host, hostname, frequentPorts, openPorts)
 
+        print("-" * 50)
+
         if len(openPorts) == 0:
             print("No open ports found")
         else:
+            print("Open ports found : ")
             for port in openPorts:
                 print("ID: " + str(port.getID()) + " | Port: " + str(port.getPortNumber()) + " | Protocol : " + str(
                     port.getProtocol()) + " | Frequency: " + str(port.getFrequency()))

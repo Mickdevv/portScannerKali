@@ -11,7 +11,7 @@ class portClass:
 
         self.updateDB()
 
-        print("ID: " + self.ID + " | Host name : " + str(self.hostName) + " | Port: " + str(self.portNumber) + " | Protocol: " + str(self.Protocol) + " | Frequency: " + str(self.Frequency))
+        #print("ID: " + self.ID + " | Host name : " + str(self.hostName) + " | Port: " + str(self.portNumber) + " | Protocol: " + str(self.Protocol) + " | Frequency: " + str(self.Frequency))
 
     def getHostName(self):
         return self.hostName
