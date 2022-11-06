@@ -7,3 +7,4 @@ def printBanner(banner):
     #f = Figlet(font=fonts[random.randint(0, len(fonts)-1)])
     f = Figlet(font="banner")
     print(f.renderText(banner))
+    print("_" * 50)

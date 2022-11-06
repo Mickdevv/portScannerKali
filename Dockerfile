@@ -6,8 +6,10 @@ ADD IPSweep.py .
 ADD PortScanner.py .
 ADD PortClass.py .
 ADD BannerRender.py .
+ADD ConnectMongoDB.py .
 
-RUN pip install pymongo pyfiglet
+RUN pip install --upgrade pip
+RUN pip3 install pymongo pyfiglet
 
 CMD python3 ./main.py hackthissite.org
 

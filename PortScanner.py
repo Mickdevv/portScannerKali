@@ -1,6 +1,6 @@
 import socket
 import BannerRender as br
-from pymongo import MongoClient
+import ConnectMongoDB
 import PortClass
 from datetime import datetime
 
@@ -15,14 +15,21 @@ def portScanner(port, host):
         print("--------- Port " + str(port) + " is open ---------")
         return port
 
+# def generatePortFrequencyList(ip):
+#     ports = []
+#     collection = ConnectMongoDB()
+#     results = collection.find_one({"IP": ip})
+#     for result in results:
+#         ports.append(result)
+#
+#     #Bubble sort
+#
+#
+#     return sortedPorts
 
 def portScan(hostname):
 
     br.printBanner("Port scanner")
-
-    cluster = MongoClient("mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
-    db = cluster["myDatabase"]
-    collection = db["hof"]
 
     # post = {"name": "Michael", "score": 5}
     # collection.
@@ -42,7 +49,7 @@ def portScan(hostname):
             if openPort != -1:
                 #print(openPort)
                 #print(socket.getservbyport(openPort) + "\n")
-                openPorts.append(PortClass.portClass(openPort, socket.getservbyport(openPort)))
+                openPorts.append(PortClass.portClass(openPort, socket.getservbyport(openPort), socket.gethostbyname(hostname)))
 
         print("\nTotal time taken: " + str(datetime.now() - scanStartTime) + "\n")
 
@@ -50,7 +57,7 @@ def portScan(hostname):
             print("No open ports found")
         else:
             for port in openPorts:
-                print("Port " + str(port.getPortNumber()) + " is open. Protocol : " + str(port.getProtocol()))
+                print("IP: " + str(port.getIP()) + " | Port: " + str(port.getPortNumber()) + " | Protocol : " + str(port.getProtocol()) + " | Frequency: " + str(port.getFrequency()))
 
     except KeyboardInterrupt:
         print("\nExiting...")
