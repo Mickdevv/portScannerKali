@@ -7,4 +7,4 @@ Running the Docker file runs the application. It takes 2 arguments : the URL you
 The range of the scan is changeable within the PortScanner.py file at lines 99 and 100.
 
 The progress bar only works when the program is run in the terminal, I'm not sure why. 
-Libraries to install foir this to run : pymongo, pyfiglet, tdqm
+Libraries to install foir this to run in terminal: pymongo, pyfiglet, tdqm
