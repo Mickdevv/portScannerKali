@@ -9,6 +9,7 @@ class portClass:
         self.Protocol = protocol
         self.ID = str(self.hostName) + "/" + str(self.portNumber)
 
+        #Adds the entry to the database
         self.updateDB()
 
         #print("ID: " + self.ID + " | Host name : " + str(self.hostName) + " | Port: " + str(self.portNumber) + " | Protocol: " + str(self.Protocol) + " | Frequency: " + str(self.Frequency))
@@ -38,15 +39,17 @@ class portClass:
         return self.Frequency
 
     def updateDB(self):
-        # cluster = MongoClient(
-        #     "mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
-        # db = cluster["myDatabase"]
+        #Connect to the mongodb database
         collection = ConnectMongoDB.connectDB()
 
+        # Query the database to check for this entry's existence
         entrySearchResult = collection.find_one({"_id": self.ID})
+
+        # If the entry does not exist, create a new one
         if entrySearchResult is None:
             post = {"_id": self.ID, "hostName": self.hostName, "Port": self.portNumber, "protocol": self.Protocol, "Frequency": self.Frequency}
             collection.insert_one(post)
+        # If the entry exists, update it
         else:
             collection.update_one({"_id": self.ID}, {"$inc": {"Frequency": 1}})
             self.Frequency = collection.find_one({"_id": self.ID})["Frequency"]

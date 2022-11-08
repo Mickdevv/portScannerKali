@@ -23,7 +23,6 @@ def portScannerLoop(firstPort, lastPort, host, hostname, frequentPorts, openPort
                     openPorts.append(PortClass.portClass(hostname, openPort, socket.getservbyport(openPort), host))
         print()
 
-
     except KeyboardInterrupt:
         print("\nExiting...")
     except socket.gaierror:
@@ -38,7 +37,7 @@ def portScannerList(frequentPorts, host, hostname, openPorts, firstPort, lastPor
     print("Checking frequently open ports...")
 
     try:
-        #for j in tqdm(range(len(frequentPorts))):
+        # for j in tqdm(range(len(frequentPorts))):
         for j in range(len(frequentPorts)):
             openPort = portScanner(frequentPorts[j][0], host)
 
@@ -46,6 +45,7 @@ def portScannerList(frequentPorts, host, hostname, openPorts, firstPort, lastPor
                 print(" Port " + str(openPort) + " is open ")
                 openPorts.append(PortClass.portClass(hostname, openPort, socket.getservbyport(openPort), host))
 
+    # Exception handling
     except KeyboardInterrupt:
         print("\nExiting...")
     except socket.gaierror:
@@ -74,18 +74,13 @@ def generatePortFrequencyList(host):
         # print(result)
         ports.append([result["Port"], result["Frequency"]])
 
-    # print("Before")
-    # print(ports)
-
-    # Bubble sort
+    # Bubble sort the list by frequency
     for i in range(len(ports)):
         for j in range(len(ports) - 1):
             if ports[j][1] < ports[j + 1][1]:
                 temp = ports[j]
                 ports[j] = ports[j + 1]
                 ports[j + 1] = temp
-    # print("After")
-    # print(ports)
 
     return ports
 
